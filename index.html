@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>Live CC by kamal Sir</title>
+
+<style>
+
+*{font-size:40px; font-family:Calibri;}
+body{background-color:azure;}
+
+</style>
+
+</head>
+
+
+<body>
+<center>
+
+<h1>Live CC App</h1>
+
+<form onsubmit="convert()">
+
+<label>Amt in $</label>
+<input type="number" step="0.01" id="aid" placeholder="enter amt in $" />
+<br/><br/>
+
+<input type="submit" value="convert to &#8377"/>
+
+</form>
+
+<h2 id="msg" />
+
+
+<script>
+
+function convert()
+{
+event.preventDefault();
+let aid = document.getElementById("aid");
+let msg = document.getElementById("msg");
+
+
+if(aid.value===""){
+
+alert("please enter amt");
+msg.innerHTML="";
+aid.focus();
+return;
+}
+
+let amt = parseFloat(aid.value);
+
+
+
+
+
+
+let url="https://api.exchangerate-api.com/v4/latest/USD";
+
+
+fetch(url)
+.then(res => res.json())
+.then(data => {
+let DOLLAR= data.rates.INR;
+let air=amt*DOLLAR;
+let ans= "\u20B9"+ air.toFixed(2);
+msg.innerHTML=ans;
+
+})
+
+.catch(err=>alert("issue" + err));
+}
+</script>
+
+</center>
+</body>
+
+</html>
